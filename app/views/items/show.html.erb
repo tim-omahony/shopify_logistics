@@ -2,6 +2,24 @@
 
 <p>Number of <%= @item.name %>(s): <%= @item.count %></p>
 
+<h2>Item is assigned to the following warehouse(s):</h2>
+<% @item.warehouses.each do |warehouse| %>
+  <p>
+    <ul>
+      <li><%= warehouse.name %></li>
+    </ul>
+  </p>
+<% end %>
+
+<h3>Assign new warehouse to item:</h3>
+<%= form_with model: [ @item, @item.warehouses.build ] do |form| %>
+  <p>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </p>
+  <%= form.submit %>
+<% end %>
+
 <ul>
   <li><%= link_to "Edit Item", edit_item_path(@item) %></li>
   <li><%= link_to "Delete Item", item_path(@item), data: {
